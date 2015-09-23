@@ -1,0 +1,50 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long int
+inline ll power(int base,int n);
+int main() {
+	int i,j,k,n,m;
+	int a[110][110]={0};
+	int dp[110][110];
+	scanf("%d%d",&n,&m);
+	for(i=0;i<n;i++)
+	{
+	    for(j=0;j<m;j++)
+	    {
+	        scanf("%d",&a[i][j]);
+	    }
+	}
+	for(i=0;i<n+1;i++)
+	{
+	    a[i][0]=a[i][m+1]=INT_MAX;
+	}
+	for(i=1;i<=n+1;i++)
+	{
+	    for(j=1;j<=m;j++)
+	    {
+	        dp[i][j]=min( min( dp[i-1][j-1]+a[i-1][j-1], dp[i-1][j]+a[i-1][j]), dp[i-1][j+1]+a[i-1][j+1]);
+	    }
+	}
+  int mini = INT_MAX;
+  for(j=1;j<=m;j++)
+  {
+   if(dp[n+1][j] < mini) mini = dp[n+1][j];
+  }
+	printf("%d\n",mini);
+	return 0;
+}
+inline ll power(int base,int n)
+{
+    ll ans=1;
+    while(n)
+   {
+        
+    if(n&1==1)
+    {
+        ans=ans*base;
+        base=base*base;
+        n=(n>>1);
+    }
+   }
+   return ans;
+}
